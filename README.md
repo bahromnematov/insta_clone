@@ -1,16 +1,13 @@
 # insta_clone
 
-A new Flutter project.
+## insta clone pubspec.yaml :
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/2a769b7e-ea16-43be-8e43-9f64844e3d35)
 
-## Getting Started
+## Preview Feed Page and upload Page  :
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/7704d86b-1e72-4edc-b5bb-8638794b7728)    ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/e3868dee-e6ea-4970-acb6-4c9dc2a3889e)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
