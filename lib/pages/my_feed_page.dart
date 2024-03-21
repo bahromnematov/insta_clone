@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import '../model/post_model.dart';
 
 class MyFeedPage extends StatefulWidget {
-  const MyFeedPage({super.key});
+  final PageController? pageController;
+
+  MyFeedPage({super.key, this.pageController});
 
   @override
   State<MyFeedPage> createState() => _MyFeedPageState();
@@ -42,7 +44,11 @@ class _MyFeedPageState extends State<MyFeedPage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.pageController!.animateToPage(2,
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeIn);
+                },
                 icon: Icon(
                   Icons.camera_alt,
                   color: Color.fromRGBO(193, 53, 132, 1),
@@ -90,7 +96,7 @@ class _MyFeedPageState extends State<MyFeedPage> {
                       SizedBox(
                         width: 10,
                       ),
-                      Column(
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -141,6 +147,12 @@ class _MyFeedPageState extends State<MyFeedPage> {
                       onPressed: () {},
                       icon: Icon(
                         EvaIcons.heart,
+                        color: Colors.red,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.mode_comment_outlined,
                         color: Colors.red,
                       )),
                   IconButton(
