@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:insta_clone/pages/home_page.dart';
 import 'package:insta_clone/pages/signin_page.dart';
+import 'package:insta_clone/servise/auth_servise.dart';
 
 import '../servise/utils_service.dart';
 
 class SignupPage extends StatefulWidget {
-  static final String id="signup_page";
+  static final String id = "signup_page";
+
   const SignupPage({super.key});
 
   @override
@@ -12,34 +16,58 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  var isLoading = false;
+  var fullnameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var cpasswordController = TextEditingController();
 
-var isLoading = false;
-var fullnameController = TextEditingController();
-var emailController = TextEditingController();
-var passwordController = TextEditingController();
-var cpasswordController = TextEditingController();
-
-_doSignUp() async{
-  String fullname = fullnameController.text.toString().trim();
-  String email = emailController.text.toString().trim();
-  String password = passwordController.text.toString().trim();
-  String cpassword = cpasswordController.text.toString().trim();
-
-  if (fullname.isEmpty || email.isEmpty || password.isEmpty) return;
-
-  if (cpassword != password) {
-    Utils.fireToast("Password and confirm password does not match");
-    return;
+  bool isPassword() {
+    bool res = false;
+    for (int i = 0; i < passwordController.text.toString().trim().length; i++) {
+      if (passwordController.text.toString().trim()[
+                  passwordController.text.toString().trim().length - 1] ==
+              passwordController.text.toString().trim().characters &&
+          passwordController.text.toString().trim()[0] ==
+              passwordController.text.toString().trim()[0].toUpperCase()) {
+        res = true;
+      }
+    }
+    return res;
   }
-  setState(() {
-    isLoading = true;
-  });
-}
 
-_callSignInPage() {
-  Navigator.pushReplacementNamed(context, SigninPage.id);
-}
+  _doSignUp() async {
+    String fullname = fullnameController.text.toString().trim();
+    String email = emailController.text.toString().trim();
+    String password = passwordController.text.toString().trim();
+    String cpassword = cpasswordController.text.toString().trim();
 
+    if (fullname.isEmpty || email.isEmpty || password.isEmpty) return;
+
+    if (isPassword == false) return;
+
+    if (cpassword != password) {
+      Utils.fireToast("Password and confirm password does not match");
+      return;
+    }
+    setState(() {
+      isLoading = true;
+    });
+    AuthService.signUpUser(fullname, email, password).then((value) => {
+          _responseSignUp(value!),
+        });
+  }
+
+  _responseSignUp(User firebaseUser) {
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.pushReplacementNamed(context, HomePage.id);
+  }
+
+  _callSignInPage() {
+    Navigator.pushReplacementNamed(context, SigninPage.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,116 +91,116 @@ _callSignInPage() {
                 children: [
                   Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Instagram",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 45,
-                                fontFamily: "Billabong"),
-                          ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Instagram",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 45,
+                            fontFamily: "Billabong"),
+                      ),
 
-                          //#fullname
-                          Container(
+                      //#fullname
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 50,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: TextField(
+                          controller: fullnameController,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: "Fullname",
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                  fontSize: 17, color: Colors.white54)),
+                        ),
+                      ),
+
+                      //#email
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 50,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: TextField(
+                          controller: emailController,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: "Email",
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                  fontSize: 17, color: Colors.white54)),
+                        ),
+                      ),
+
+                      //#password
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 50,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: "Password",
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                  fontSize: 17, color: Colors.white54)),
+                        ),
+                      ),
+
+                      //#cpassword
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 50,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: TextField(
+                          controller: cpasswordController,
+                          obscureText: true,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: "Confirm Password",
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                  fontSize: 17, color: Colors.white54)),
+                        ),
+                      ),
+
+                      //#signin
+                      GestureDetector(
+                        onTap: () {
+                          _doSignUp();
+                        },
+                        child: Container(
                             margin: EdgeInsets.only(top: 10),
                             height: 50,
                             padding: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(7)),
-                            child: TextField(
-                              controller: fullnameController,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  hintText: "Fullname",
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      fontSize: 17, color: Colors.white54)),
-                            ),
-                          ),
-
-                          //#email
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            height: 50,
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(7)),
-                            child: TextField(
-                              controller: emailController,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  hintText: "Email",
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      fontSize: 17, color: Colors.white54)),
-                            ),
-                          ),
-
-                          //#password
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            height: 50,
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(7)),
-                            child: TextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  hintText: "Password",
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      fontSize: 17, color: Colors.white54)),
-                            ),
-                          ),
-
-                          //#cpassword
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            height: 50,
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(7)),
-                            child: TextField(
-                              controller: cpasswordController,
-                              obscureText: true,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  hintText: "Confirm Password",
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                      fontSize: 17, color: Colors.white54)),
-                            ),
-                          ),
-
-                          //#signin
-                          GestureDetector(
-                            onTap: () {
-                              _doSignUp();
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(top: 10),
-                                height: 50,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Center(
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  ),
-                                )),
-                          ),
-                        ],
-                      )),
+                            child: Center(
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 17),
+                              ),
+                            )),
+                      ),
+                    ],
+                  )),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -202,8 +230,8 @@ _callSignInPage() {
               ),
               isLoading
                   ? Center(
-                child: CircularProgressIndicator(),
-              )
+                      child: CircularProgressIndicator(),
+                    )
                   : SizedBox.shrink(),
             ],
           )),

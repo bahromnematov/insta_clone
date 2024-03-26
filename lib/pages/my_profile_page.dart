@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:insta_clone/servise/auth_servise.dart';
 
 import '../model/post_model.dart';
 
@@ -17,6 +18,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   List<Post> items = [];
   bool isLoading = false;
   File? _image;
+  int count = 1;
   String fullname = "Bahrom", email = "bahrom@gmail.com", img_url = "";
   final ImagePicker _picker = ImagePicker();
 
@@ -98,7 +100,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                AuthService.signOutUser(context);
+              },
               icon: Icon(Icons.exit_to_app),
               color: Color.fromRGBO(193, 53, 132, 1),
             )
@@ -277,7 +281,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: Center(
                             child: IconButton(
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  count = 1;
+                                });
                               },
                               icon: Icon(Icons.list_alt),
                             ),
@@ -287,7 +293,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           child: Center(
                             child: IconButton(
                               onPressed: () {
-                                setState(() {});
+                                setState(() {
+                                  count = 2;
+                                });
                               },
                               icon: Icon(Icons.grid_view),
                             ),
@@ -301,7 +309,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   Expanded(
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
+                          crossAxisCount: count),
                       itemCount: items.length,
                       itemBuilder: (ctx, index) {
                         return _itemOfPost(items[index]);
@@ -318,30 +326,30 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Widget _itemOfPost(Post post) {
     return GestureDetector(
         child: Container(
-          margin: EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Expanded(
-                child: CachedNetworkImage(
-                  width: double.infinity,
-                  imageUrl: post.img_post,
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  fit: BoxFit.cover,
-                ),
+      margin: EdgeInsets.all(5),
+      child: Column(
+        children: [
+          Expanded(
+            child: CachedNetworkImage(
+              width: double.infinity,
+              imageUrl: post.img_post,
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(),
               ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(
-                post.caption,
-                style: TextStyle(color: Colors.black87.withOpacity(0.7)),
-                maxLines: 2,
-              )
-            ],
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              fit: BoxFit.cover,
+            ),
           ),
-        ));
+          SizedBox(
+            height: 3,
+          ),
+          Text(
+            post.caption,
+            style: TextStyle(color: Colors.black87.withOpacity(0.7)),
+            maxLines: 2,
+          )
+        ],
+      ),
+    ));
   }
 }

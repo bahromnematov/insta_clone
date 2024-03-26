@@ -146,7 +146,7 @@ class _MyFeedPageState extends State<MyFeedPage> {
                   IconButton(
                       onPressed: () {},
                       icon: Icon(
-                        EvaIcons.heart,
+                        EvaIcons.heartOutline,
                         color: Colors.red,
                       )),
                   IconButton(
