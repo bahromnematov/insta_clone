@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/servise/db_service.dart';
 
 import '../model/member_model.dart';
 
@@ -14,14 +15,27 @@ class _MySearchPageState extends State<MySearchPage> {
   var searchController = TextEditingController();
   List<Member> items = [];
 
+  void _apiSearchMember(String keyword) {
+    setState(() {
+      isLoading = true;
+    });
+    DBService.searchMembers(keyword).then((users) => {
+          _responseSearchMember(users),
+        });
+  }
+
+  void _responseSearchMember(List<Member> members) {
+    setState(() {
+      items = members;
+      isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    items.add(Member("Bahrom", "bahrom12@gmail.com"));
-    items.add(Member("Bahrom3", "bahrom12@gmail.com"));
-    items.add(Member("Bahrom45", "bahrom12@gmail.com"));
-    items.add(Member("Bahrom5", "bahrom12@gmail.com"));
+    _apiSearchMember("");
   }
 
   @override
@@ -98,12 +112,19 @@ class _MySearchPageState extends State<MySearchPage> {
             ),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(22.5),
-                child: Image(
-                  image: AssetImage("assets/images/ic_person.png"),
-                  width: 45,
-                  height: 45,
-                  fit: BoxFit.cover,
-                )),
+                child: member.img_url.isEmpty
+                    ? Image(
+                        image: AssetImage("assets/images/ic_person.png"),
+                        width: 45,
+                        height: 45,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        member.img_url,
+                        width: 45,
+                        height: 45,
+                        fit: BoxFit.cover,
+                      )),
           ),
           SizedBox(
             width: 15,
