@@ -11,6 +11,11 @@
 
 ## Add Firebase and Auth sign in andn sign up page
 
+## Add Firebase Cloud FireStore and Profile page image load firebase Storage load info fireStore database
+
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/f744f040-7e49-492d-b21f-e9c8c4ee61dc)
+
+
 
 
 
