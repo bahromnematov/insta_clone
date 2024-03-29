@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:insta_clone/model/member_model.dart';
 import 'package:insta_clone/pages/home_page.dart';
 import 'package:insta_clone/pages/signin_page.dart';
 import 'package:insta_clone/servise/auth_servise.dart';
+import 'package:insta_clone/servise/db_service.dart';
 
 import '../servise/utils_service.dart';
 
@@ -53,12 +55,14 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isLoading = true;
     });
-    AuthService.signUpUser(fullname, email, password).then((value) => {
-          _responseSignUp(value!),
+    var response = await AuthService.signUpUser(fullname, email, password);
+    Member member = Member(fullname, email);
+    DBService.storeMember(member).then((value) => {
+          storeMemberToDB(member),
         });
   }
 
-  _responseSignUp(User firebaseUser) {
+  void storeMemberToDB(Member member) {
     setState(() {
       isLoading = false;
     });

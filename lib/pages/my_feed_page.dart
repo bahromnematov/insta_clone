@@ -20,7 +20,7 @@ class _MyFeedPageState extends State<MyFeedPage> {
   String img1 =
       'https://images.unsplash.com/photo-1708545158412-ae3d000a2edf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   String img2 =
-      "https://plus.unsplash.com/premium_photo-1709311451252-fbe6d75e3cc5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+      "https://images.unsplash.com/photo-1603666880615-2adaa7cab50c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEyfDZzTVZqVExTa2VRfHxlbnwwfHx8fHw%3D";
   String img3 =
       "https://plus.unsplash.com/premium_photo-1709311451252-fbe6d75e3cc5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 

@@ -9,7 +9,7 @@ class Post {
         caption = json['caption'];
 
   Map<String, dynamic> toJson() => {
-        'img_post': img_post,
-        'caption': caption,
-      };
+    'img_post': img_post,
+    'caption': caption,
+  };
 }
