@@ -15,6 +15,12 @@
 
 ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/f744f040-7e49-492d-b21f-e9c8c4ee61dc)
 
+## Search page update firebase getAll users search page 
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc)
+
+
+
+
 
 
 
