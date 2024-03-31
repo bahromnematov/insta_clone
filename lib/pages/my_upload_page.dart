@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../model/post_model.dart';
+import '../servise/db_service.dart';
+import '../servise/file_service.dart';
+
 class MyUploadPage extends StatefulWidget {
   final PageController? pageController;
 
@@ -64,22 +68,46 @@ class _MyUploadPageState extends State<MyUploadPage> {
         });
   }
 
+  //Db set post
   _uploadNewPost() {
     String caption = captionController.text.toString().trim();
     if (caption.isEmpty) return;
     if (_image == null) return;
-
-    _moveFeed();
+    _apiPostImage();
   }
 
-  _moveFeed() {
+  void _apiPostImage() {
+    setState(() {
+      isLoading = true;
+    });
+    FileService.uploadPostImage(_image!).then((downloadUrl) => {
+          _resPostImage(downloadUrl),
+        });
+  }
+
+  void _resPostImage(String downloadUrl) {
+    String caption = captionController.text.toString().trim();
+    Post post = Post(caption, downloadUrl);
+    _apiStorePost(post);
+  }
+
+  void _apiStorePost(Post post) async {
+    // Post to posts
+    Post posted = await DBService.storePost(post);
+    // Post to feeds
+    DBService.storeFeed(posted).then((value) => {
+          _moveToFeed(),
+        });
+  }
+
+  _moveToFeed() {
     setState(() {
       isLoading = false;
     });
     captionController.text = "";
     _image = null;
     widget.pageController!.animateToPage(0,
-        duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+        duration: Duration(microseconds: 200), curve: Curves.easeIn);
   }
 
   @override

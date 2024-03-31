@@ -37,9 +37,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
     // TODO: implement initState
     super.initState();
     _apiLoadMember();
-    items.add(Post(img1, "Bu bizning 1 chi postdagi izohimiz"));
-    items.add(Post(img2, "Bu bizning 2 chi postdagi izohimiz"));
-    items.add(Post(img3, "Bu bizning 3 chi postdagi izohimiz"));
+    items.add(Post("Bu bizning 1 chi postdagi izohimiz", img1));
+    items.add(Post("Bu bizning 2 chi postdagi izohimiz", img2));
+    items.add(Post("Bu bizning 3 chi postdagi izohimiz", img3));
   }
 
   _imgFromGallery() async {

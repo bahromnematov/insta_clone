@@ -79,7 +79,7 @@ class _SignupPageState extends State<SignupPage> {
       body: Container(
           padding: EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -97,7 +97,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Instagram",
                         style: TextStyle(
                             color: Colors.white,
@@ -115,7 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                             borderRadius: BorderRadius.circular(7)),
                         child: TextField(
                           controller: fullnameController,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                               hintText: "Fullname",
                               border: InputBorder.none,
