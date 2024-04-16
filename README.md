@@ -23,6 +23,12 @@
 
 ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb)
 
+## Load Profile and Feed page posts
+
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/1c0900ec-c616-40fc-97df-1b33de73ddb0)  ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/1d88040f-ed27-48f9-8097-05690d7d45ff)
+
+
+
 
 
 
