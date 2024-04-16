@@ -21,25 +21,28 @@ class _MyProfilePageState extends State<MyProfilePage> {
   List<Post> items = [];
   bool isLoading = false;
   File? _image;
-  int count = 1;
+  int count = 2;
   String fullname = "", email = "", img_url = "";
   final ImagePicker _picker = ImagePicker();
-
-  String img1 =
-      "https://firebasestorage.googleapis.com/v0/b/koreanguideway.appspot.com/o/develop%2Fpost2.png?alt=media&token=ac0c131a-4e9e-40c0-a75a-88e586b28b72";
-  String img2 =
-      "https://plus.unsplash.com/premium_photo-1681582959812-b65dd91759f4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMnx8fGVufDB8fHx8fA%3D%3D";
-  String img3 =
-      "https://images.unsplash.com/photo-1709418334633-e7aa4c72d6ad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0M3x8fGVufDB8fHx8fA%3D%3D";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _apiLoadMember();
-    items.add(Post("Bu bizning 1 chi postdagi izohimiz", img1));
-    items.add(Post("Bu bizning 2 chi postdagi izohimiz", img2));
-    items.add(Post("Bu bizning 3 chi postdagi izohimiz", img3));
+    _apiLoadPosts();
+  }
+
+  _apiLoadPosts() {
+    DBService.loadPosts().then((value) => {
+          _resLoadPosts(value),
+        });
+  }
+
+  _resLoadPosts(List<Post> posts) {
+    setState(() {
+      items = posts;
+    });
   }
 
   _imgFromGallery() async {
@@ -92,15 +95,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
         });
   }
 
-  void _apiLoadMember() {
-    setState(() {
-      isLoading = true;
-    });
-    DBService.loadMember().then((value) => {
-          _showMemberInfo(value),
-        });
-  }
-
   void _showMemberInfo(Member member) {
     setState(() {
       isLoading = false;
@@ -108,6 +102,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
       this.email = member.email;
       this.img_url = member.img_url;
     });
+  }
+
+  void _apiLoadMember() {
+    setState(() {
+      isLoading = true;
+    });
+    DBService.loadMember().then((value) => {
+          _showMemberInfo(value),
+        });
   }
 
   void _apiChangePhoto() {
@@ -242,7 +245,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                               children: [
                                 Text(
                                   items.length.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -261,7 +264,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             ),
                           ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Center(
                             child: Column(
                               children: [
@@ -324,7 +327,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  count = 1;
+                                  count = 2;
                                 });
                               },
                               icon: Icon(Icons.list_alt),
@@ -336,7 +339,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  count = 2;
+                                  count = 1;
                                 });
                               },
                               icon: Icon(Icons.grid_view),

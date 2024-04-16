@@ -3,6 +3,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../model/post_model.dart';
+import '../servise/db_service.dart';
 
 class MyFeedPage extends StatefulWidget {
   final PageController? pageController;
@@ -17,20 +18,27 @@ class _MyFeedPageState extends State<MyFeedPage> {
   bool isLoading = false;
   List<Post> items = [];
 
-  String img1 =
-      'https://images.unsplash.com/photo-1708545158412-ae3d000a2edf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-  String img2 =
-      "https://images.unsplash.com/photo-1603666880615-2adaa7cab50c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEyfDZzTVZqVExTa2VRfHxlbnwwfHx8fHw%3D";
-  String img3 =
-      "https://plus.unsplash.com/premium_photo-1709311451252-fbe6d75e3cc5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  _apiLoadFeeds() {
+    setState(() {
+      isLoading = true;
+    });
+    DBService.loadFeeds().then((value) => {
+          _resLoadFeeds(value),
+        });
+  }
+
+  _resLoadFeeds(List<Post> posts) {
+    setState(() {
+      items = posts;
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    items.add(Post("Bu bizning 1 chi postdagi izohimiz", img1));
-    items.add(Post("Bu bizning 2 chi postdagi izohimiz", img2));
-    items.add(Post("Bu bizning 3 chi postdagi izohimiz", img3));
+    _apiLoadFeeds();
   }
 
   @override
@@ -86,21 +94,28 @@ class _MyFeedPageState extends State<MyFeedPage> {
                   Row(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image(
-                          image: AssetImage("assets/images/ic_person.png"),
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(40),
+                          child: post.img_user.isEmpty
+                              ? Image(
+                                  image:
+                                      AssetImage("assets/images/ic_person.png"),
+                                  width: 40,
+                                  height: 40,
+                                )
+                              : Image.network(
+                                  post.img_user,
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.cover,
+                                )),
                       SizedBox(
                         width: 10,
                       ),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Nematov Bahrom",
+                            post.fullname,
                             style: TextStyle(
                                 fontSize: 17,
                                 color: Colors.black,
@@ -110,7 +125,7 @@ class _MyFeedPageState extends State<MyFeedPage> {
                             height: 3,
                           ),
                           Text(
-                            "2024-03-18 1:23",
+                            post.date,
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold),
