@@ -19,6 +19,11 @@
 
 ## Update Db Service And Firebase add Post profile and feed page
 
+## Upload page save posts
+
+![image](https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb)
+
+
 
 
 
