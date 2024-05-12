@@ -24,7 +24,6 @@
 ## Upload page save posts
 
 <img src="https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb" width="200" height="350">
-<!-- ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb) -->
 
 ## Load Profile and Feed page posts
 
