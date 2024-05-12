@@ -18,13 +18,13 @@
 
 ## Search page update firebase getAll users search page 
 <img src="https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc" width="250" height="450">
-<!-- ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc) -->
 
 ## Update Db Service And Firebase add Post profile and feed page
 
 ## Upload page save posts
 
-![image](https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb)
+<img src="https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb" width="200" height="350">
+<!-- ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/29e770e0-8140-497b-92a9-6dc5c24ecdeb) -->
 
 ## Load Profile and Feed page posts
 
