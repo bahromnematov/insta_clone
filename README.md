@@ -17,7 +17,8 @@
 <img src="https://github.com/bahromnematov/insta_clone/assets/89692061/f744f040-7e49-492d-b21f-e9c8c4ee61dc" width="270" height="470">
 
 ## Search page update firebase getAll users search page 
-![image](https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc)
+<img src="https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc" width="250" height="450">
+<!-- ![image](https://github.com/bahromnematov/insta_clone/assets/89692061/a4067dc8-7156-4442-81a7-a676e9c3c9bc) -->
 
 ## Update Db Service And Firebase add Post profile and feed page
 
